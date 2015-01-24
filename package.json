@@ -27,6 +27,7 @@
   },
   "devDependencies": {
     "mocha": "~2.1",
+    "mongodb": "2.0.14",
     "superagent": "~0.21"
   },
   "engines": {
