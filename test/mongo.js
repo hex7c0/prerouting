@@ -40,7 +40,7 @@ describe('mongo', function() {
 
     it('should return mongo request to Prerouting server', function(done) {
 
-      client.connect('mongodb://127.0.0.1:5000', function(err, db) {
+      client.connect('mongodb://127.0.0.1:6000', function(err, db) {
 
         assert.equal(err, null);
         assert.notEqual(db.databaseName, null);
