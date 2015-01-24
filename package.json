@@ -1,0 +1,40 @@
+{
+  "version": "0.0.0",
+  "name": "prerouting",
+  "description": "preroute incoming traffic to another TCP server",
+  "keywords": [
+    "prerouting",
+    "tcp",
+    "socks"
+  ],
+  "preferGlobal": false,
+  "homepage": "http://supergiovane.tk/#/prerouting",
+  "author": {
+    "name": "hex7c0",
+    "email": "hex7c0@gmail.com",
+    "url": "http://hex7c0.tk/"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/hex7c0/prerouting.git"
+  },
+  "bugs": {
+    "url": "https://github.com/hex7c0/prerouting/issues",
+    "email": "hex7c0@gmail.com"
+  },
+  "main": "index.min.js",
+  "dependencies": {
+  },
+  "devDependencies": {
+    "mocha": "~2.1",
+    "superagent": "~0.21"
+  },
+  "engines": {
+    "node": "^0.10"
+  },
+  "scripts": {
+    "prepublish": "npm prune",
+    "test": "mocha --bail --check-leaks test/"
+  },
+  "license": "GPLv3"
+}
