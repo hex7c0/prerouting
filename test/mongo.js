@@ -23,7 +23,7 @@ var client = require('mongodb').MongoClient;
  */
 describe('mongo', function() {
 
-  var listenPort = 5000;
+  var listenPort = 6000;
 
   describe('create', function() {
 
