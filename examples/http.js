@@ -14,7 +14,6 @@ var http = require('http');
 
 var web = http.createServer(function(req, res) {
 
-  console.log(req.socket.localPort)
   res.end('Hello World');
 }).listen(3000, '127.0.0.1', function() {
 
