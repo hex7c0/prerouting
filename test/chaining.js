@@ -1,6 +1,6 @@
 'use strict';
 /**
- * @file http test
+ * @file chaining http test
  * @module prerouting
  * @package prerouting
  * @subpackage test
@@ -22,9 +22,9 @@ var request = require('superagent');
 /*
  * test module
  */
-describe('http', function() {
+describe('chaining http', function() {
 
-  var ports = [ 3000, 5001, 5002, 5003, 5004 ];
+  var ports = [ 3001, 5001, 5002, 5003, 5004 ];
 
   describe('create', function() {
 
