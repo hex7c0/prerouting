@@ -33,10 +33,59 @@ function createServer(options) {
     toPort: Number(opt.toPort) || 3000,
     toHost: String(opt.toHost || '127.0.0.1'),
     listenPort: Number(opt.listenPort) || 5000,
-    listenHost: opt.listenHost
+    listenHost: opt.listenHost,
+    dataToNext: typeof opt.dataToNext == 'function' ? opt.dataToNext : false,
+    dataFromNext: typeof opt.dataFromNext == 'function' ? opt.dataFromNext
+      : false
   };
 
-  var server = net.createServer(function(clientToServer) {
+  if (my.dataToNext || my.dataFromNext) {
+    return net.createServer(function(clientToServer) {
+
+      // connect prerouting to server
+      var serverToClient = net.connect(my.toPort, my.toHost, function() {
+
+        /**
+         * get data from server and send to client
+         */
+        if (my.dataFromNext !== false) {
+          serverToClient.on('data', function(toBack) {
+
+            return my.dataFromNext(toBack, function(buffer) {
+
+              return clientToServer.write(buffer);
+            });
+          });
+        } else {
+          serverToClient.on('data', function(toBack) {
+
+            return clientToServer.write(toBack);
+          });
+        }
+      });
+
+      /**
+       * get data from client and send to server
+       */
+      if (my.dataToNext !== false) {
+        clientToServer.on('data', function(toServer) {
+
+          return my.dataToNext(toServer, function(buffer) {
+
+            return serverToClient.write(buffer);
+          });
+        });
+      } else {
+        clientToServer.on('data', function(toServer) {
+
+          return serverToClient.write(toServer);
+        });
+      }
+
+    }).listen(my.listenPort, my.listenHost);
+  }
+
+  return net.createServer(function(clientToServer) {
 
     // connect prerouting to server
     var serverToClient = net.connect(my.toPort, my.toHost, function() {
@@ -59,7 +108,5 @@ function createServer(options) {
     });
 
   }).listen(my.listenPort, my.listenHost);
-
-  return server;
 }
 module.exports.createServer = createServer;
