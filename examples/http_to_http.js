@@ -18,7 +18,7 @@ var web = http.createServer(function(req, res) {
 }).listen(3000, '127.0.0.1', function() {
 
   var addr = web.address();
-  console.log('Web server running at ' + addr.address + ':' + addr.port);
+  console.log('Web HTTP server running at ' + addr.address + ':' + addr.port);
 });
 
 var pre = prerouting.createServer().on(
@@ -26,6 +26,6 @@ var pre = prerouting.createServer().on(
   function() {
 
     var addr = pre.address();
-    console.log('Prerouting server running at ' + addr.address + ':'
+    console.log('Prerouting HTTP server running at ' + addr.address + ':'
       + addr.port);
   });
