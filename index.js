@@ -15,12 +15,13 @@
  */
 // import
 var net = require('net');
+var tls = require('tls');
 
 /*
  * functions
  */
 /**
- * prerouting createServer
+ * prerouting createServer (net or tls)
  * 
  * @function createServer
  * @param {Object} [options] - various options. Check README.md
@@ -28,84 +29,75 @@ var net = require('net');
  */
 function createServer(options) {
 
-  var opt = options || Object.create(null);
+  var o = options || Object.create(null);
   var my = {
-    toPort: Number(opt.toPort) || 3000,
-    toHost: String(opt.toHost || '127.0.0.1'),
-    listenPort: Number(opt.listenPort) || 5000,
-    listenHost: opt.listenHost,
-    dataToNext: typeof opt.dataToNext == 'function' ? opt.dataToNext : false,
-    dataFromNext: typeof opt.dataFromNext == 'function' ? opt.dataFromNext
-      : false
-  };
-
-  if (my.dataToNext || my.dataFromNext) {
-    return net.createServer(function(clientToServer) {
-
-      // connect prerouting to server
-      var serverToClient = net.connect(my.toPort, my.toHost, function() {
-
-        /**
-         * get data from server and send to client
-         */
-        if (my.dataFromNext !== false) {
-          serverToClient.on('data', function(toBack) {
-
-            return my.dataFromNext(toBack, function(buffer) {
-
-              return clientToServer.write(buffer);
-            });
-          });
-        } else {
-          serverToClient.on('data', function(toBack) {
-
-            return clientToServer.write(toBack);
-          });
-        }
-      });
-
-      /**
-       * get data from client and send to server
-       */
-      if (my.dataToNext !== false) {
-        clientToServer.on('data', function(toServer) {
-
-          return my.dataToNext(toServer, function(buffer) {
-
-            return serverToClient.write(buffer);
-          });
-        });
-      } else {
-        clientToServer.on('data', function(toServer) {
-
-          return serverToClient.write(toServer);
-        });
-      }
-
-    }).listen(my.listenPort, my.listenHost);
+    toPort: Number(o.toPort) || 3000,
+    toHost: String(o.toHost || '127.0.0.1'),
+    listenPort: Number(o.listenPort) || 5000,
+    listenHost: o.listenHost,
+    dataToNext: typeof o.dataToNext == 'function' ? o.dataToNext : false,
+    dataFromNext: typeof o.dataFromNext == 'function' ? o.dataFromNext : false,
+    tls: typeof o.tls == 'object' ? o.tls : false,
+    clientUseTls: Boolean(o.clientUseTls)
   }
 
-  return net.createServer(function(clientToServer) {
+  var server, connect, dataToNext, dataFromNext;
+
+  if (!my.tls) {
+    server = net.createServer;
+  } else {
+    server = tls.createServer;
+  }
+  if (!my.clientUseTls) {
+    connect = net.connect;
+  } else {
+    connect = tls.connect;
+  }
+
+  return server(my.tls, function(clientToServer) {
+
+    if (!my.dataToNext) {
+      dataToNext = function(toServer) {
+
+        return serverToClient.write(toServer);
+      };
+    } else {
+      dataToNext = function(toServer) {
+
+        return my.dataToNext(toServer, function(buffer) {
+
+          return serverToClient.write(buffer);
+        });
+      }
+    }
+    if (!my.dataFromNext) {
+      dataFromNext = function(toBack) {
+
+        return clientToServer.write(toBack);
+      };
+    } else {
+      dataFromNext = function(toBack) {
+
+        return my.dataFromNext(toBack, function(buffer) {
+
+          return clientToServer.write(buffer);
+        });
+      }
+    }
 
     // connect prerouting to server
-    var serverToClient = net.connect(my.toPort, my.toHost, function() {
+    var serverToClient = connect(my.toPort, my.toHost, function() {
 
       /**
        * get data from server and send to client
        */
-      serverToClient.on('data', function(toBack) {
-
-        return clientToServer.write(toBack);
-      });
+      serverToClient.on('data', dataFromNext);
     });
 
     /**
      * get data from client and send to server
      */
-    clientToServer.on('data', function(toServer) {
-
-      return serverToClient.write(toServer);
-    });
+    clientToServer.on('data', dataToNext);
 
   }).listen(my.listenPort, my.listenHost);
 }
