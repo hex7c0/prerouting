@@ -1,6 +1,6 @@
 'use strict';
 /**
- * @file routing to http example
+ * @file routing through chaining servers with compression to http server
  * @module prerouting
  * @package prerouting
  * @subpackage examples
