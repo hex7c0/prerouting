@@ -35,10 +35,10 @@ var server = prerouting.createServer();
  - `toHost`- **String** connect to this host *(default "127.0.0.1")*
  - `listenPort` - **Number** open a TCP server on this port *(default "5000")*
  - `listenHost` - **String** open a TCP server on this host *(default "127.0.0.1")*
- - `dataToNext` - **Function** function to next route (for chaining) *(default "disabled")*
- - `dataFromNext` - **Function** function from next route (for chaining) *(default "false")*
- - `tls` - **Object** TLS [options](http://nodejs.org/api/tls.html#tls_tls_createserver_options_secureconnectionlistener) *(default "false")*
- - `clientUseTls` - **Boolean** connect to TLS client (true) *(default "false")*
+ - `dataToNext` - **Function** function to next route *(default "false")*
+ - `dataFromNext` - **Function** function from next route *(default "false")*
+ - `tls` - **Object** TLS server [options](http://nodejs.org/api/tls.html#tls_tls_createserver_options_secureconnectionlistener) *(default "false")*
+ - `clientUseTls` - **Boolean** connect to TLS client *(default "false")*
 
 ## Examples
 
