@@ -2,7 +2,6 @@
 /**
  * @file http test
  * @module prerouting
- * @package prerouting
  * @subpackage test
  * @version 0.0.1
  * @author hex7c0 <hex7c0@gmail.com>
@@ -13,7 +12,6 @@
 /*
  * initialize module
  */
-// import
 var prerouting = require('..');
 var assert = require('assert');
 var http = require('http');
@@ -26,87 +24,182 @@ describe('http', function() {
 
   var listenPort = 5000;
 
-  describe('create', function() {
+  describe('default', function() {
 
-    it('should create Web server', function(done) {
+    describe('create', function() {
 
-      http.createServer(function(req, res) {
+      it('should create Web server', function(done) {
 
-        res.setHeader('X-Field', 'ciao');
-        if (req.url == '/') {
-          res.writeHead(200, {
-            'Content-Type': 'text/plain'
-          });
-        } else {
-          res.writeHead(404, {
-            'Content-Type': 'text/plain'
-          });
-        }
-        res.end('Hello World\n');
-      }).listen(3000, '127.0.0.1', done);
+        http.createServer(function(req, res) {
+
+          res.setHeader('X-Field', 'ciao');
+          if (req.url == '/') {
+            res.writeHead(200, {
+              'Content-Type': 'text/plain'
+            });
+          } else {
+            res.writeHead(404, {
+              'Content-Type': 'text/plain'
+            });
+          }
+          res.end('Hello World\n');
+        }).listen(3000, '127.0.0.1', done);
+      });
+      it('should create Prerouting server', function(done) {
+
+        prerouting.createServer({
+          listenPort: listenPort
+        }).on('listening', done);
+      });
     });
-    it('should create Prerouting server', function(done) {
 
-      prerouting.createServer({
-        listenPort: listenPort
-      }).on('listening', done);
+    describe('routing', function() {
+
+      var uri = 'http://127.0.0.1:';
+
+      it('should return web request to Prerouting server', function(done) {
+
+        request.get(uri + listenPort + '/').end(function(err, res) {
+
+          if (err) {
+            throw err;
+          }
+          assert.equal(res.statusCode, 200);
+          assert.equal(res.text, 'Hello World\n');
+          assert.equal(res.header['x-field'], 'ciao');
+          done();
+        });
+      });
+      it('should return web request to Web server', function(done) {
+
+        request.get(uri + 3000 + '/').end(function(err, res) {
+
+          if (err) {
+            throw err;
+          }
+          assert.equal(res.statusCode, 200);
+          assert.equal(res.text, 'Hello World\n');
+          assert.equal(res.header['x-field'], 'ciao');
+          done();
+        });
+      });
+      it('should return 404 web request to Prerouting server', function(done) {
+
+        request.get(uri + listenPort + '/err').end(function(err, res) {
+
+          if (err) {
+            throw err;
+          }
+          assert.equal(res.statusCode, 404);
+          assert.equal(res.text, 'Hello World\n');
+          assert.equal(res.header['x-field'], 'ciao');
+          done();
+        });
+      });
+      it('should return 404 web request to Web server', function(done) {
+
+        request.get(uri + 3000 + '/err').end(function(err, res) {
+
+          if (err) {
+            throw err;
+          }
+          assert.equal(res.statusCode, 404);
+          assert.equal(res.text, 'Hello World\n');
+          assert.equal(res.header['x-field'], 'ciao');
+          done();
+        });
+      });
     });
   });
 
-  describe('routing', function() {
+  describe('toPort', function() {
 
-    var uri = 'http://127.0.0.1:';
+    var listenPort2 = 50000;
+    var toPort = 50001;
 
-    it('should return web request to Prerouting server', function(done) {
+    describe('create', function() {
 
-      request.get(uri + listenPort + '/').end(function(err, res) {
+      it('should create Web server', function(done) {
 
-        if (err) {
-          throw err;
-        }
-        assert.equal(res.statusCode, 200);
-        assert.equal(res.text, 'Hello World\n');
-        assert.equal(res.header['x-field'], 'ciao');
-        done();
+        http.createServer(function(req, res) {
+
+          res.setHeader('X-Field', 'ciao');
+          if (req.url == '/') {
+            res.writeHead(200, {
+              'Content-Type': 'text/plain'
+            });
+          } else {
+            res.writeHead(404, {
+              'Content-Type': 'text/plain'
+            });
+          }
+          res.end('Hello World\n');
+        }).listen(toPort, '127.0.0.1', done);
+      });
+      it('should create Prerouting server', function(done) {
+
+        prerouting.createServer({
+          listenPort: listenPort2,
+          toPort: toPort
+        }).on('listening', done);
       });
     });
-    it('should return web request to Web server', function(done) {
 
-      request.get(uri + 3000 + '/').end(function(err, res) {
+    describe('routing', function() {
 
-        if (err) {
-          throw err;
-        }
-        assert.equal(res.statusCode, 200);
-        assert.equal(res.text, 'Hello World\n');
-        assert.equal(res.header['x-field'], 'ciao');
-        done();
+      var uri = 'http://127.0.0.1:';
+
+      it('should return web request to Prerouting server', function(done) {
+
+        request.get(uri + listenPort2 + '/').end(function(err, res) {
+
+          if (err) {
+            throw err;
+          }
+          assert.equal(res.statusCode, 200);
+          assert.equal(res.text, 'Hello World\n');
+          assert.equal(res.header['x-field'], 'ciao');
+          done();
+        });
       });
-    });
-    it('should return 404 web request to Prerouting server', function(done) {
+      it('should return web request to Web server', function(done) {
 
-      request.get(uri + listenPort + '/err').end(function(err, res) {
+        request.get(uri + toPort + '/').end(function(err, res) {
 
-        if (err) {
-          throw err;
-        }
-        assert.equal(res.statusCode, 404);
-        assert.equal(res.text, 'Hello World\n');
-        assert.equal(res.header['x-field'], 'ciao');
-        done();
+          if (err) {
+            throw err;
+          }
+          assert.equal(res.statusCode, 200);
+          assert.equal(res.text, 'Hello World\n');
+          assert.equal(res.header['x-field'], 'ciao');
+          done();
+        });
       });
-    });
-    it('should return 404 web request to Web server', function(done) {
+      it('should return 404 web request to Prerouting server', function(done) {
 
-      request.get(uri + 3000 + '/err').end(function(err, res) {
+        request.get(uri + listenPort2 + '/err').end(function(err, res) {
 
-        if (err) {
-          throw err;
-        }
-        assert.equal(res.statusCode, 404);
-        assert.equal(res.text, 'Hello World\n');
-        assert.equal(res.header['x-field'], 'ciao');
-        done();
+          if (err) {
+            throw err;
+          }
+          assert.equal(res.statusCode, 404);
+          assert.equal(res.text, 'Hello World\n');
+          assert.equal(res.header['x-field'], 'ciao');
+          done();
+        });
+      });
+      it('should return 404 web request to Web server', function(done) {
+
+        request.get(uri + toPort + '/err').end(function(err, res) {
+
+          if (err) {
+            throw err;
+          }
+          assert.equal(res.statusCode, 404);
+          assert.equal(res.text, 'Hello World\n');
+          assert.equal(res.header['x-field'], 'ciao');
+          done();
+        });
       });
     });
   });

@@ -2,7 +2,6 @@
 /**
  * @file chaining http test
  * @module prerouting
- * @package prerouting
  * @subpackage test
  * @version 0.0.1
  * @author hex7c0 <hex7c0@gmail.com>
@@ -13,7 +12,6 @@
 /*
  * initialize module
  */
-// import
 var prerouting = require('..');
 var assert = require('assert');
 var http = require('http');
@@ -144,8 +142,8 @@ describe('compressed chaining http request', function() {
 
       if (err) throw err;
       return next(compressed);
-    })
-  }
+    });
+  };
   var uncompress = function(input, next) {
 
     snappy.uncompress(input, {
@@ -154,8 +152,8 @@ describe('compressed chaining http request', function() {
 
       if (err) throw err;
       return next(uncompress);
-    })
-  }
+    });
+  };
 
   describe('create', function() {
 

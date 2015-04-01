@@ -2,7 +2,6 @@
 /**
  * @file mongo test
  * @module prerouting
- * @package prerouting
  * @subpackage test
  * @version 0.0.1
  * @author hex7c0 <hex7c0@gmail.com>
@@ -13,7 +12,6 @@
 /*
  * initialize module
  */
-// import
 var prerouting = require('..');
 var assert = require('assert');
 var client = require('mongodb').MongoClient;
@@ -74,8 +72,8 @@ describe('mongo with compress chain', function() {
 
       if (err) throw err;
       return next(compressed);
-    })
-  }
+    });
+  };
   var uncompress = function(input, next) {
 
     snappy.uncompress(input, {
@@ -84,8 +82,8 @@ describe('mongo with compress chain', function() {
 
       if (err) throw err;
       return next(uncompress);
-    })
-  }
+    });
+  };
 
   describe('create', function() {
 
