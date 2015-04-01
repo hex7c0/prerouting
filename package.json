@@ -26,9 +26,11 @@
   "dependencies": {
   },
   "devDependencies": {
-    "mocha": "~2.1",
-    "mongodb": "2.0.14",
-    "snappy": "3.0.4",
+    "coveralls": "~2.11",
+    "istanbul": "~0.3",
+    "mocha": "~2.2",
+    "mongodb": "~2.0",
+    "snappy": "~3.0",
     "superagent": "~0.21"
   },
   "engines": {
@@ -36,7 +38,8 @@
   },
   "scripts": {
     "prepublish": "npm prune",
-    "test": "mocha --bail --check-leaks test/"
+    "test": "mocha --bail --check-leaks",
+    "test-cov": "istanbul cover node_modules/mocha/bin/_mocha --report lcovonly"
   },
   "license": "GPLv3"
 }
