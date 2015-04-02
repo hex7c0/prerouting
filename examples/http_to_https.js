@@ -2,14 +2,13 @@
 /**
  * @file routing through http to https server
  * @module prerouting
- * @package prerouting
  * @subpackage examples
  * @version 0.0.1
  * @author hex7c0 <hex7c0@gmail.com>
  * @license GPLv3
  */
 
-var prerouting = require('..');
+var prerouting = require('..'); // use require ('prerouting') instead
 var https = require('https');
 var fs = require('fs');
 process.env.NODE_TLS_REJECT_UNAUTHORIZED = 0; // self-signed cert

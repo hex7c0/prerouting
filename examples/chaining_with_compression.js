@@ -2,14 +2,13 @@
 /**
  * @file routing through chaining servers with compression to http server
  * @module prerouting
- * @package prerouting
  * @subpackage examples
  * @version 0.0.1
  * @author hex7c0 <hex7c0@gmail.com>
  * @license GPLv3
  */
 
-var prerouting = require('..');
+var prerouting = require('..'); // use require ('prerouting') instead
 var http = require('http');
 var snappy = require('snappy');
 
@@ -19,8 +18,8 @@ var compress = function(input, next) {
 
     if (err) throw err;
     return next(compressed);
-  })
-}
+  });
+};
 var uncompress = function(input, next) {
 
   snappy.uncompress(input, {
@@ -29,8 +28,8 @@ var uncompress = function(input, next) {
 
     if (err) throw err;
     return next(uncompress);
-  })
-}
+  });
+};
 
 var web = http.createServer(function(req, res) {
 

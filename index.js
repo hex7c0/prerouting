@@ -2,9 +2,8 @@
 /**
  * @file prerouting main
  * @module prerouting
- * @package prerouting
  * @subpackage main
- * @version 0.0.1
+ * @version 0.1.0
  * @author hex7c0 <hex7c0@gmail.com>
  * @copyright hex7c0 2014
  * @license GPLv3
@@ -13,7 +12,6 @@
 /*
  * initialize module
  */
-// import
 var net = require('net');
 var tls = require('tls');
 
@@ -39,7 +37,7 @@ function createServer(options) {
     dataFromNext: typeof o.dataFromNext == 'function' ? o.dataFromNext : false,
     tls: typeof o.tls == 'object' ? o.tls : false,
     clientUseTls: Boolean(o.clientUseTls)
-  }
+  };
 
   var server, connect, dataToNext, dataFromNext;
 
@@ -68,7 +66,7 @@ function createServer(options) {
 
           return serverToClient.write(buffer);
         });
-      }
+      };
     }
     if (!my.dataFromNext) {
       dataFromNext = function(toBack) {
@@ -82,7 +80,7 @@ function createServer(options) {
 
           return clientToServer.write(buffer);
         });
-      }
+      };
     }
 
     // connect prerouting to server
