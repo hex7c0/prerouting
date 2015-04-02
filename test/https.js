@@ -17,6 +17,7 @@ var assert = require('assert');
 var https = require('https');
 var request = require('superagent');
 var fs = require('fs');
+var path = require('path');
 process.env.NODE_TLS_REJECT_UNAUTHORIZED = 0; // self-signed cert
 
 /*
@@ -32,23 +33,26 @@ describe('https', function() {
 
       it('should create Web server', function(done) {
 
-        https.createServer({
-          key: fs.readFileSync(__dirname + '/../examples/keys/key.pem'),
-          cert: fs.readFileSync(__dirname + '/../examples/keys/cert.pem')
-        }, function(req, res) {
+        https.createServer(
+          {
+            key: fs.readFileSync(path.resolve(__dirname, '..',
+              'examples/keys/key.pem')),
+            cert: fs.readFileSync(path.resolve(__dirname, '..',
+              'examples/keys/cert.pem'))
+          }, function(req, res) {
 
-          res.setHeader('X-Field', 'ciao');
-          if (req.url == '/') {
-            res.writeHead(200, {
-              'Content-Type': 'text/plain'
-            });
-          } else {
-            res.writeHead(404, {
-              'Content-Type': 'text/plain'
-            });
-          }
-          res.end('Hello World\n');
-        }).listen(3000, '127.0.0.1', done);
+            res.setHeader('X-Field', 'ciao');
+            if (req.url == '/') {
+              res.writeHead(200, {
+                'Content-Type': 'text/plain'
+              });
+            } else {
+              res.writeHead(404, {
+                'Content-Type': 'text/plain'
+              });
+            }
+            res.end('Hello World\n');
+          }).listen(3000, '127.0.0.1', done);
       });
       it('should create Prerouting server', function(done) {
 
