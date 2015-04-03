@@ -82,9 +82,7 @@ describe('normal chaining http request', function() {
 
       request.get(uri + ports[1] + '/').end(function(err, res) {
 
-        if (err) {
-          throw err;
-        }
+        assert.equal(err, null);
         assert.equal(res.statusCode, 200);
         assert.equal(res.text, 'Hello World\n');
         assert.equal(res.header['x-field'], 'ciao');
@@ -95,9 +93,7 @@ describe('normal chaining http request', function() {
 
       request.get(uri + ports[2] + '/').end(function(err, res) {
 
-        if (err) {
-          throw err;
-        }
+        assert.equal(err, null);
         assert.equal(res.statusCode, 200);
         assert.equal(res.text, 'Hello World\n');
         assert.equal(res.header['x-field'], 'ciao');
@@ -108,9 +104,7 @@ describe('normal chaining http request', function() {
 
       request.get(uri + ports[3] + '/').end(function(err, res) {
 
-        if (err) {
-          throw err;
-        }
+        assert.equal(err, null);
         assert.equal(res.statusCode, 200);
         assert.equal(res.text, 'Hello World\n');
         assert.equal(res.header['x-field'], 'ciao');
@@ -121,9 +115,7 @@ describe('normal chaining http request', function() {
 
       request.get(uri + ports[4] + '/').end(function(err, res) {
 
-        if (err) {
-          throw err;
-        }
+        assert.equal(err, null);
         assert.equal(res.statusCode, 200);
         assert.equal(res.text, 'Hello World\n');
         assert.equal(res.header['x-field'], 'ciao');
@@ -140,7 +132,7 @@ describe('compressed chaining http request', function() {
 
     snappy.compress(input, function(err, compressed) {
 
-      if (err) throw err;
+      assert.equal(err, null);
       return next(compressed);
     });
   };
@@ -150,7 +142,7 @@ describe('compressed chaining http request', function() {
       asBuffer: true
     }, function(err, uncompress) {
 
-      if (err) throw err;
+      assert.equal(err, null);
       return next(uncompress);
     });
   };
@@ -202,9 +194,7 @@ describe('compressed chaining http request', function() {
 
       request.get(uri + ports[2] + '/').end(function(err, res) {
 
-        if (err) {
-          throw err;
-        }
+        assert.equal(err, null);
         assert.equal(res.statusCode, 200);
         assert.equal(res.text, 'Hello World\n');
         assert.equal(res.header['x-field'], 'ciao');

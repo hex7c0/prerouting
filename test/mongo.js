@@ -70,7 +70,7 @@ describe('mongo with compress chain', function() {
 
     snappy.compress(input, function(err, compressed) {
 
-      if (err) throw err;
+      assert.equal(err, null);
       return next(compressed);
     });
   };
@@ -80,7 +80,7 @@ describe('mongo with compress chain', function() {
       asBuffer: true
     }, function(err, uncompress) {
 
-      if (err) throw err;
+      assert.equal(err, null);
       return next(uncompress);
     });
   };
