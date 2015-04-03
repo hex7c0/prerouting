@@ -1,8 +1,10 @@
 # [prerouting](http://supergiovane.tk/#/prerouting)
 
-[![NPM version](https://badge.fury.io/js/prerouting.svg)](http://badge.fury.io/js/prerouting)
-[![Build Status](https://travis-ci.org/hex7c0/prerouting.svg)](https://travis-ci.org/hex7c0/prerouting)
-[![Dependency Status](https://david-dm.org/hex7c0/prerouting/status.svg)](https://david-dm.org/hex7c0/prerouting)
+[![NPM version](https://img.shields.io/npm/v/prerouting.svg)](https://www.npmjs.com/package/prerouting)
+[![Linux Status](https://img.shields.io/travis/hex7c0/prerouting.svg?label=linux)](https://travis-ci.org/hex7c0/prerouting)
+[![Windows Status](https://img.shields.io/appveyor/ci/hex7c0/prerouting.svg?label=windows)](https://ci.appveyor.com/project/hex7c0/prerouting)
+[![Dependency Status](https://img.shields.io/david/hex7c0/prerouting.svg)](https://david-dm.org/hex7c0/prerouting)
+[![Coveralls](https://img.shields.io/coveralls/hex7c0/prerouting.svg)](https://coveralls.io/r/hex7c0/prerouting)
 
 Preroute incoming traffic to N TCP servers; for compress data, encrypt message, etc (or just a loop :D)
 
@@ -42,6 +44,6 @@ var server = prerouting.createServer();
 
 ## Examples
 
-Take a look at my [examples](https://github.com/hex7c0/prerouting/tree/master/examples)
+Take a look at my [examples](examples)
 
-### [License GPLv3](http://opensource.org/licenses/GPL-3.0)
+### [License GPLv3](LICENSE)
