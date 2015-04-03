@@ -34,12 +34,12 @@
     "superagent": "~0.21"
   },
   "engines": {
-    "node": "^0.10"
+    "node": ">=0.10"
   },
   "scripts": {
     "prepublish": "npm prune",
-    "test": "mocha --bail --check-leaks",
-    "test-cov": "istanbul cover node_modules/mocha/bin/_mocha --report lcovonly"
+    "test": "mocha --bail --check-leaks test/",
+    "test-cov": "istanbul cover node_modules/mocha/bin/_mocha --report lcovonly -- test/*"
   },
   "license": "GPLv3"
 }
