@@ -104,7 +104,10 @@ describe('https', function() {
 
         request.get(uri + toPort + '/err').end(function(err, res) {
 
-          assert.equal(err, null);
+          assert.notEqual(err, null);
+          assert.equal(err.response.statusCode, 404);
+          assert.equal(err.response.text, 'Hello World\n');
+          assert.equal(err.response.header['x-field'], 'ciao');
           assert.equal(res.statusCode, 404);
           assert.equal(res.text, 'Hello World\n');
           assert.equal(res.header['x-field'], 'ciao');
