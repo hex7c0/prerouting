@@ -30,7 +30,7 @@
     "istanbul": "~0.3",
     "mocha": "~2.2",
     "mongodb": "~2.0",
-    "snappy": "~3.0",
+    "snappy": "~4.0",
     "superagent": "~0.21"
   },
   "engines": {
