@@ -24,3 +24,5 @@ services:
   - mongodb
 script: "npm run-script test-cov"
 after_script: "cat ./coverage/lcov.info | coveralls"
+before_install:
+  - if [ "$(npm -v | cut -c1)" == '1' ]; then npm -g i npm@2; fi
