@@ -33,9 +33,9 @@ function createServer(options) {
     toHost: String(o.toHost || '127.0.0.1'),
     listenPort: Number(o.listenPort) || 5000,
     listenHost: o.listenHost,
-    dataToNext: typeof o.dataToNext == 'function' ? o.dataToNext : false,
-    dataFromNext: typeof o.dataFromNext == 'function' ? o.dataFromNext : false,
-    tls: typeof o.tls == 'object' ? o.tls : false,
+    dataToNext: typeof o.dataToNext === 'function' ? o.dataToNext : false,
+    dataFromNext: typeof o.dataFromNext === 'function' ? o.dataFromNext : false,
+    tls: typeof o.tls === 'object' ? o.tls : false,
     clientUseTls: Boolean(o.clientUseTls)
   };
 
@@ -54,7 +54,7 @@ function createServer(options) {
 
   return server(my.tls, function(clientToServer) {
 
-    if (!my.dataToNext) {
+    if (!my.dataToNext) { // To
       dataToNext = function(toServer) {
 
         return serverToClient.write(toServer);
@@ -68,7 +68,8 @@ function createServer(options) {
         });
       };
     }
-    if (!my.dataFromNext) {
+
+    if (!my.dataFromNext) { // From
       dataFromNext = function(toBack) {
 
         return clientToServer.write(toBack);
@@ -86,17 +87,18 @@ function createServer(options) {
     // connect prerouting to server
     var serverToClient = connect(my.toPort, my.toHost, function() {
 
-      /**
+      /*
        * get data from server and send to client
        */
       serverToClient.on('data', dataFromNext);
+      return;
     });
 
-    /**
+    /*
      * get data from client and send to server
      */
     clientToServer.on('data', dataToNext);
-
+    return;
   }).listen(my.listenPort, my.listenHost);
 }
 module.exports.createServer = createServer;
