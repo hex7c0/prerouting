@@ -8,7 +8,7 @@
     "socks"
   ],
   "preferGlobal": false,
-  "homepage": "http://supergiovane.tk/#/prerouting",
+  "homepage": "https://github.com/hex7c0/prerouting",
   "author": {
     "name": "hex7c0",
     "email": "hex7c0@gmail.com",
@@ -27,7 +27,7 @@
   },
   "devDependencies": {
     "coveralls": "~2.11",
-    "istanbul": "~0.3",
+    "istanbul": "~0.4",
     "mocha": "~2.3",
     "mongodb": "~2.0",
     "snappy": "~4.0",
