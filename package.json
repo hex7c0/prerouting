@@ -1,5 +1,5 @@
 {
-  "version": "0.1.1",
+  "version": "0.1.2",
   "name": "prerouting",
   "description": "preroute incoming traffic to another TCP server",
   "keywords": [
@@ -8,7 +8,7 @@
     "socks"
   ],
   "preferGlobal": false,
-  "homepage": "http://supergiovane.tk/#/prerouting",
+  "homepage": "https://github.com/hex7c0/prerouting",
   "author": {
     "name": "hex7c0",
     "email": "hex7c0@gmail.com",
@@ -27,11 +27,11 @@
   },
   "devDependencies": {
     "coveralls": "~2.11",
-    "istanbul": "~0.3",
+    "istanbul": "~0.4",
     "mocha": "~2.3",
     "mongodb": "~2.0",
     "snappy": "~4.0",
-    "superagent": "~1.4"
+    "superagent": "~1.5"
   },
   "engines": {
     "node": ">=0.10"
