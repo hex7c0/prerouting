@@ -28,8 +28,8 @@
   "devDependencies": {
     "coveralls": "~2.11",
     "istanbul": "~0.4",
-    "mocha": "~2.3",
-    "mongodb": "~2.0",
+    "mocha": "~2.5",
+    "mongodb": "~2.1",
     "snappy": "~4.0",
     "superagent": "~1.5"
   },
