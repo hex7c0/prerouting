@@ -52,7 +52,7 @@ function createServer(options) {
     connect = tls.connect;
   }
 
-  return server(my.tls, function(clientToServer) {
+  return server(my, function(clientToServer) {
 
     if (!my.dataToNext) { // To
       dataToNext = function(toServer) {

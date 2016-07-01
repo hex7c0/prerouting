@@ -1,49 +1,9 @@
 # [prerouting](https://github.com/hex7c0/prerouting)
 
-[![NPM version](https://img.shields.io/npm/v/prerouting.svg)](https://www.npmjs.com/package/prerouting)
-[![Linux Status](https://img.shields.io/travis/hex7c0/prerouting.svg?label=linux)](https://travis-ci.org/hex7c0/prerouting)
-[![Windows Status](https://img.shields.io/appveyor/ci/hex7c0/prerouting.svg?label=windows)](https://ci.appveyor.com/project/hex7c0/prerouting)
-[![Dependency Status](https://img.shields.io/david/hex7c0/prerouting.svg)](https://david-dm.org/hex7c0/prerouting)
-[![Coveralls](https://img.shields.io/coveralls/hex7c0/prerouting.svg)](https://coveralls.io/r/hex7c0/prerouting)
+Please see the link above for the original. This fork was originally to adapt for mux, reconnect, etc. 
 
-Preroute incoming traffic to N TCP servers; for compress data, encrypt message, etc (or just a loop :D)
+If there is need for it, I will rewrite it, however this repo currently only exists to fix a bug in the aforementioned repo. 
 
-## Installation
+[See my PR (one line diff)](https://github.com/hex7c0/prerouting/pull/1)
 
-Install through NPM
-
-```bash
-npm install prerouting
-```
-or
-```bash
-git clone git://github.com/hex7c0/prerouting.git
-```
-
-## API
-
-inside nodejs project
-```js
-var prerouting = require('prerouting');
-
-var server = prerouting.createServer();
-```
-
-### createServer(options)
-
-#### options
-
- - `toPort` - **Number** connect to this port *(default "3000")*
- - `toHost`- **String** connect to this host *(default "127.0.0.1")*
- - `listenPort` - **Number** open a TCP server on this port *(default "5000")*
- - `listenHost` - **String** open a TCP server on this host *(default "127.0.0.1")*
- - `dataToNext` - **Function** function to next route *(default "false")*
- - `dataFromNext` - **Function** function from next route *(default "false")*
- - `tls` - **Object** TLS server [options](http://nodejs.org/api/tls.html#tls_tls_createserver_options_secureconnectionlistener) *(default "false")*
- - `clientUseTls` - **Boolean** connect to TLS client *(default "false")*
-
-## Examples
-
-Take a look at my [examples](examples)
-
-### [License GPLv3](LICENSE)
+[See my replacement project](https://github.com/CreativeCactus/TCPChan)
