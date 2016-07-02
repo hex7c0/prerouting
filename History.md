@@ -1,3 +1,10 @@
+v0.2.0 / 2016-07-02
+==================
+
+  * `tls` options as Boolean
+  * Accept net/tls server options (@CreativeCactus)
+  * Test `node`@5
+
 v0.1.2 / 2015-10-16
 ==================
 
