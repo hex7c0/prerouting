@@ -58,7 +58,8 @@ describe('https', function() {
 
         prerouting.createServer({
           listenPort: listenPort,
-          toPort: toPort
+          toPort: toPort,
+          sessionTimeout: 120, // tls specs
         }).on('listening', done);
       });
     });

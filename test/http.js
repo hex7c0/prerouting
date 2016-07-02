@@ -48,7 +48,8 @@ describe('http', function() {
       it('should create Prerouting server', function(done) {
 
         prerouting.createServer({
-          listenPort: listenPort
+          listenPort: listenPort,
+          allowHalfOpen: false, // net specs
         }).on('listening', done);
       });
     });

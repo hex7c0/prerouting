@@ -27,17 +27,16 @@ var tls = require('tls');
  */
 function createServer(options) {
 
-  var o = options || Object.create(null);
-  var my = {
-    toPort: Number(o.toPort) || 3000,
-    toHost: String(o.toHost || '127.0.0.1'),
-    listenPort: Number(o.listenPort) || 5000,
-    listenHost: o.listenHost,
-    dataToNext: typeof o.dataToNext === 'function' ? o.dataToNext : false,
-    dataFromNext: typeof o.dataFromNext === 'function' ? o.dataFromNext : false,
-    tls: typeof o.tls === 'object' ? o.tls : false,
-    clientUseTls: Boolean(o.clientUseTls)
-  };
+  var my = options || Object.create(null);
+  my.toPort = Number(my.toPort) || 3000;
+  my.toHost = String(my.toHost || '127.0.0.1');
+  my.listenPort = Number(my.listenPort) || 5000;
+  my.listenHost = my.listenHost;
+  my.dataToNext = typeof my.dataToNext === 'function' ? my.dataToNext : false;
+  my.dataFromNext = typeof my.dataFromNext === 'function' ? my.dataFromNext
+    : false;
+  my.tls = Boolean(my.tls);
+  my.clientUseTls = Boolean(my.clientUseTls);
 
   var server, connect, dataToNext, dataFromNext;
 
@@ -52,7 +51,7 @@ function createServer(options) {
     connect = tls.connect;
   }
 
-  return server(my.tls, function(clientToServer) {
+  return server(my, function(clientToServer) {
 
     if (!my.dataToNext) { // To
       dataToNext = function(toServer) {
