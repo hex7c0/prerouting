@@ -53,32 +53,46 @@ function createServer(options) {
 
   return server(my, function(clientToServer) {
 
-    if (!my.dataToNext) { // To
+    /*
+     * sent data To
+     */
+    if (!my.dataToNext) {
       dataToNext = function(toServer) {
 
-        return serverToClient.write(toServer);
+        if (serverToClient.writable === true) {
+          serverToClient.write(toServer);
+        }
       };
     } else {
       dataToNext = function(toServer) {
 
-        return my.dataToNext(toServer, function(buffer) {
+        my.dataToNext(toServer, function(buffer) {
 
-          return serverToClient.write(buffer);
+          if (serverToClient.writable === true) {
+            serverToClient.write(buffer);
+          }
         });
       };
     }
 
-    if (!my.dataFromNext) { // From
+    /*
+     * receive data From
+     */
+    if (!my.dataFromNext) {
       dataFromNext = function(toBack) {
 
-        return clientToServer.write(toBack);
+        if (clientToServer.writable === true) {
+          clientToServer.write(toBack);
+        }
       };
     } else {
       dataFromNext = function(toBack) {
 
-        return my.dataFromNext(toBack, function(buffer) {
+        my.dataFromNext(toBack, function(buffer) {
 
-          return clientToServer.write(buffer);
+          if (clientToServer.writable === true) {
+            clientToServer.write(buffer);
+          }
         });
       };
     }
@@ -89,12 +103,22 @@ function createServer(options) {
     /*
      * get data from server and send to client
      */
-    serverToClient.on('data', dataFromNext);
+    serverToClient.on('data', dataFromNext).on('end', function() {
+
+      if (clientToServer.destroyed === false) {
+        clientToServer.end();
+      }
+    });
 
     /*
      * get data from client and send to server
      */
-    clientToServer.on('data', dataToNext);
+    clientToServer.on('data', dataToNext).on('end', function() {
+
+      if (serverToClient.destroyed === false) {
+        serverToClient.end();
+      }
+    });
 
   }).listen(my.listenPort, my.listenHost);
 }
