@@ -38,7 +38,7 @@ function createServer(options) {
   my.tls = Boolean(my.tls);
   my.clientUseTls = Boolean(my.clientUseTls);
 
-  var server, connect, dataToNext, dataFromNext;
+  var server, connect;
 
   if (!my.tls) {
     server = net.createServer;
@@ -53,25 +53,34 @@ function createServer(options) {
 
   return server(my, function(clientToServer) {
 
+    var serverToClient = connect(my.toPort, my.toHost); // connect prerouting to server
+    var dataToNext, dataFromNext;
+    var dataDispatcherServer = function(buffer) {
+
+      if (serverToClient.writable === true) { // open connection
+        if (serverToClient.write(buffer) === false) { // was queued in user memory
+          serverToClient.pause();
+        }
+      }
+    };
+    var dataDispatcherClient = function(buffer) {
+
+      if (clientToServer.writable === true) { // open connection
+        if (clientToServer.write(buffer) === false) { // was queued in user memory
+          clientToServer.pause();
+        }
+      }
+    };
+
     /*
      * sent data To
      */
     if (!my.dataToNext) {
-      dataToNext = function(toServer) {
-
-        if (serverToClient.writable === true) {
-          serverToClient.write(toServer);
-        }
-      };
+      dataToNext = dataDispatcherServer;
     } else {
       dataToNext = function(toServer) {
 
-        my.dataToNext(toServer, function(buffer) {
-
-          if (serverToClient.writable === true) {
-            serverToClient.write(buffer);
-          }
-        });
+        my.dataToNext(toServer, dataDispatcherServer);
       };
     }
 
@@ -79,26 +88,13 @@ function createServer(options) {
      * receive data From
      */
     if (!my.dataFromNext) {
-      dataFromNext = function(toBack) {
-
-        if (clientToServer.writable === true) {
-          clientToServer.write(toBack);
-        }
-      };
+      dataFromNext = dataDispatcherClient;
     } else {
       dataFromNext = function(toBack) {
 
-        my.dataFromNext(toBack, function(buffer) {
-
-          if (clientToServer.writable === true) {
-            clientToServer.write(buffer);
-          }
-        });
+        my.dataFromNext(toBack, dataDispatcherClient);
       };
     }
-
-    // connect prerouting to server
-    var serverToClient = connect(my.toPort, my.toHost);
 
     /*
      * get data from server and send to client
@@ -112,6 +108,9 @@ function createServer(options) {
     }).on('timeout', function() {
 
       serverToClient.emit('end');
+    }).on('drain', function() {
+
+      serverToClient.resume();
     });
     // options
     serverToClient.setTimeout(120000).setNoDelay(true).setKeepAlive(true);
@@ -128,6 +127,9 @@ function createServer(options) {
     }).on('timeout', function() {
 
       clientToServer.emit('end');
+    }).on('drain', function() {
+
+      clientToServer.resume();
     });
     // options
     clientToServer.setTimeout(120000).setNoDelay(true);
