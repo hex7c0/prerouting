@@ -1,3 +1,11 @@
+v0.3.0 / 2016-08-07
+==================
+
+  * Set KeepAlive probe for chaining servers connections
+  * Add socketTimeout
+  * Add close connection event
+  * Handle drain writing, with pause/resume socket
+
 v0.2.0 / 2016-07-02
 ==================
 
