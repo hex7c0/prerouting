@@ -1,6 +1,6 @@
 'use strict';
 /**
- * @file routing through chaining servers with rc4 encription to http server
+ * @file routing through chaining servers with rc4 encryption to http server
  * @module prerouting
  * @subpackage examples
  * @version 0.0.1
