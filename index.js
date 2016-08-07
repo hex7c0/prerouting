@@ -103,22 +103,34 @@ function createServer(options) {
     /*
      * get data from server and send to client
      */
+    // events
     serverToClient.on('data', dataFromNext).on('end', function() {
 
       if (clientToServer.destroyed === false) {
         clientToServer.end();
       }
+    }).on('timeout', function() {
+
+      serverToClient.emit('end');
     });
+    // options
+    serverToClient.setTimeout(120000);
 
     /*
      * get data from client and send to server
      */
+    // events
     clientToServer.on('data', dataToNext).on('end', function() {
 
       if (serverToClient.destroyed === false) {
         serverToClient.end();
       }
+    }).on('timeout', function() {
+
+      clientToServer.emit('end');
     });
+    // options
+    clientToServer.setTimeout(120000);
 
   }).listen(my.listenPort, my.listenHost);
 }
