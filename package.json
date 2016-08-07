@@ -26,9 +26,10 @@
   "dependencies": {
   },
   "devDependencies": {
+    "arc4": "~3.3",
     "coveralls": "~2.11",
     "istanbul": "~0.4",
-    "lz4": "0.5.2",
+    "lz4": "~0.5",
     "mocha": "~2.5",
     "mongodb": "~2.2",
     "snappy": "~5.0",
