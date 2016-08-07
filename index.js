@@ -84,20 +84,18 @@ function createServer(options) {
     }
 
     // connect prerouting to server
-    var serverToClient = connect(my.toPort, my.toHost, function() {
+    var serverToClient = connect(my.toPort, my.toHost);
 
-      /*
-       * get data from server and send to client
-       */
-      serverToClient.on('data', dataFromNext);
-      return;
-    });
+    /*
+     * get data from server and send to client
+     */
+    serverToClient.on('data', dataFromNext);
 
     /*
      * get data from client and send to server
      */
     clientToServer.on('data', dataToNext);
-    return;
+
   }).listen(my.listenPort, my.listenHost);
 }
 module.exports.createServer = createServer;
