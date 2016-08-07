@@ -7,6 +7,31 @@
 
 Preroute incoming traffic to N TCP servers; for compress data, encrypt message, etc (or just a loop :D)
 
+```
+      request
+         |
+         +
+ +----------------+
+ |  5001 -> 5000  |
+ +----------------+
+         +
+         |
+     compression
+         |
+         +
+ +----------------+
+ |  5000 -> 3000  |
+ +----------------+
+         +
+         |
+    decompression
+         |
+         +
+ +----------------+
+ |      3000      |
+ +----------------+
+```
+
 ## Installation
 
 Install through NPM
