@@ -113,7 +113,9 @@ function createServer(options) {
       serverToClient.resume();
     });
     // options
-    serverToClient.setTimeout(120000).setNoDelay(true).setKeepAlive(true);
+    serverToClient.setTimeout(120000);
+    serverToClient.setNoDelay(true);
+    serverToClient.setKeepAlive(true);
 
     /*
      * get data from client and send to server
@@ -132,7 +134,8 @@ function createServer(options) {
       clientToServer.resume();
     });
     // options
-    clientToServer.setTimeout(120000).setNoDelay(true);
+    clientToServer.setTimeout(120000);
+    clientToServer.setNoDelay(true);
 
   }).listen(my.listenPort, my.listenHost);
 }
