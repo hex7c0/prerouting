@@ -190,9 +190,9 @@ describe('compressed chaining http request', function() {
 
     var uri = 'http://127.0.0.1:';
 
-    it('should return web request to 2° Prerouting server', function(done) {
+    it('should return web request to 1° Prerouting server', function(done) {
 
-      request.get(uri + ports[2] + '/').end(function(err, res) {
+      request.get(uri + ports[0] + '/').end(function(err, res) {
 
         assert.ifError(err);
         assert.equal(res.statusCode, 200);
