@@ -82,7 +82,7 @@ describe('normal chaining http request', function() {
 
       request.get(uri + ports[1] + '/').end(function(err, res) {
 
-        assert.equal(err, null);
+        assert.ifError(err);
         assert.equal(res.statusCode, 200);
         assert.equal(res.text, 'Hello World\n');
         assert.equal(res.header['x-field'], 'ciao');
@@ -93,7 +93,7 @@ describe('normal chaining http request', function() {
 
       request.get(uri + ports[2] + '/').end(function(err, res) {
 
-        assert.equal(err, null);
+        assert.ifError(err);
         assert.equal(res.statusCode, 200);
         assert.equal(res.text, 'Hello World\n');
         assert.equal(res.header['x-field'], 'ciao');
@@ -104,7 +104,7 @@ describe('normal chaining http request', function() {
 
       request.get(uri + ports[3] + '/').end(function(err, res) {
 
-        assert.equal(err, null);
+        assert.ifError(err);
         assert.equal(res.statusCode, 200);
         assert.equal(res.text, 'Hello World\n');
         assert.equal(res.header['x-field'], 'ciao');
@@ -115,7 +115,7 @@ describe('normal chaining http request', function() {
 
       request.get(uri + ports[4] + '/').end(function(err, res) {
 
-        assert.equal(err, null);
+        assert.ifError(err);
         assert.equal(res.statusCode, 200);
         assert.equal(res.text, 'Hello World\n');
         assert.equal(res.header['x-field'], 'ciao');
@@ -132,7 +132,7 @@ describe('compressed chaining http request', function() {
 
     snappy.compress(input, function(err, compressed) {
 
-      assert.equal(err, null);
+      assert.ifError(err);
       return next(compressed);
     });
   };
@@ -142,7 +142,7 @@ describe('compressed chaining http request', function() {
       asBuffer: true
     }, function(err, uncompress) {
 
-      assert.equal(err, null);
+      assert.ifError(err);
       return next(uncompress);
     });
   };
@@ -194,10 +194,10 @@ describe('compressed chaining http request', function() {
 
       request.get(uri + ports[2] + '/').end(function(err, res) {
 
-        // assert.equal(err, null);
-        // assert.equal(res.statusCode, 200);
-        // assert.equal(res.text, 'Hello World\n');
-        // assert.equal(res.header['x-field'], 'ciao');
+        assert.ifError(err);
+        assert.equal(res.statusCode, 200);
+        assert.equal(res.text, 'Hello World\n');
+        assert.equal(res.header['x-field'], 'ciao');
         done();
       });
     });

@@ -83,7 +83,7 @@ describe('https', function() {
 
         request.get(uri + toPort + '/').end(function(err, res) {
 
-          assert.equal(err, null);
+          assert.ifError(err);
           assert.equal(res.statusCode, 200);
           assert.equal(res.text, 'Hello World\n');
           assert.equal(res.header['x-field'], 'ciao');

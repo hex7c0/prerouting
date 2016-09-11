@@ -62,7 +62,7 @@ describe('http', function() {
 
         request.get(uri + listenPort + '/').end(function(err, res) {
 
-          assert.equal(err, null);
+          assert.ifError(err);
           assert.equal(res.statusCode, 200);
           assert.equal(res.text, 'Hello World\n');
           assert.equal(res.header['x-field'], 'ciao');
@@ -73,7 +73,7 @@ describe('http', function() {
 
         request.get(uri + 3000 + '/').end(function(err, res) {
 
-          assert.equal(err, null);
+          assert.ifError(err);
           assert.equal(res.statusCode, 200);
           assert.equal(res.text, 'Hello World\n');
           assert.equal(res.header['x-field'], 'ciao');
@@ -152,7 +152,7 @@ describe('http', function() {
 
         request.get(uri + listenPort2 + '/').end(function(err, res) {
 
-          assert.equal(err, null);
+          assert.ifError(err);
           assert.equal(res.statusCode, 200);
           assert.equal(res.text, 'Hello World\n');
           assert.equal(res.header['x-field'], 'ciao');
@@ -163,7 +163,7 @@ describe('http', function() {
 
         request.get(uri + toPort + '/').end(function(err, res) {
 
-          assert.equal(err, null);
+          assert.ifError(err);
           assert.equal(res.statusCode, 200);
           assert.equal(res.text, 'Hello World\n');
           assert.equal(res.header['x-field'], 'ciao');
