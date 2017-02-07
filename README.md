@@ -1,7 +1,7 @@
 # [prerouting](https://github.com/hex7c0/prerouting)
 
 [![NPM version](https://img.shields.io/npm/v/prerouting.svg)](https://www.npmjs.com/package/prerouting)
-[![Linux Status](https://img.shields.io/travis/hex7c0/prerouting.svg?label=linux-osx)](https://travis-ci.org/hex7c0/prerouting)
+[![Linux Status](https://img.shields.io/travis/hex7c0/prerouting.svg?label=linux)](https://travis-ci.org/hex7c0/prerouting)
 [![Dependency Status](https://img.shields.io/david/hex7c0/prerouting.svg)](https://david-dm.org/hex7c0/prerouting)
 [![Coveralls](https://img.shields.io/coveralls/hex7c0/prerouting.svg)](https://coveralls.io/r/hex7c0/prerouting)
 
