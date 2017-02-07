@@ -35,7 +35,7 @@
     "superagent": "~2.2"
   },
   "engines": {
-    "node": ">=0.10"
+    "node": ">=4.0"
   },
   "scripts": {
     "prepublish": "npm prune",
