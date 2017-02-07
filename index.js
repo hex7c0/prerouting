@@ -2,8 +2,7 @@
 /**
  * @file prerouting main
  * @module prerouting
- * @subpackage main
- * @version 0.3.0
+ * @version 0.4.0
  * @author hex7c0 <hex7c0@gmail.com>
  * @copyright hex7c0 2014
  * @license GPLv3
