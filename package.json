@@ -23,22 +23,21 @@
     "email": "hex7c0@gmail.com"
   },
   "main": "index.min.js",
-  "dependencies": {
-  },
+  "dependencies": {},
   "devDependencies": {
     "arc4": "~3.3",
     "istanbul": "~0.4",
     "lz4": "~0.5",
-    "mocha": "~3.2",
+    "mocha": "~4.1",
     "mongodb": "~2.2",
     "snappy": "~5.0",
     "superagent": "~3.4"
   },
   "engines": {
-    "node": ">=4.0"
+    "node": ">=4"
   },
   "scripts": {
-    "prepublish": "npm prune",
+    "prepare": "npm prune",
     "test": "mocha --bail --check-leaks test/",
     "test-cov": "istanbul cover node_modules/mocha/bin/_mocha --report lcovonly -- test/*"
   },
