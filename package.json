@@ -28,9 +28,9 @@
     "arc4": "~3.3",
     "istanbul": "~0.4",
     "lz4": "~0.5",
-    "mocha": "~4.1",
+    "mocha": "~3.5",
     "mongodb": "~2.2",
-    "snappy": "~5.0",
+    "snappy": "~6.0",
     "superagent": "~3.8"
   },
   "engines": {
@@ -38,8 +38,8 @@
   },
   "scripts": {
     "prepare": "npm prune",
-    "test": "mocha --bail --check-leaks --exit test/*",
-    "test-cov": "istanbul cover node_modules/mocha/bin/_mocha --exit --report lcovonly -- test/*"
+    "test": "mocha --bail --check-leaks test/*",
+    "test-cov": "istanbul cover node_modules/mocha/bin/_mocha --report lcovonly -- test/*"
   },
   "license": "GPL-3.0"
 }
