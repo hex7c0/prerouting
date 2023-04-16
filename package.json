@@ -28,7 +28,7 @@
     "arc4": "~3.3",
     "istanbul": "~0.4",
     "lz4": "~0.5",
-    "mocha": "~3.5",
+    "mocha": "~10.2",
     "mongodb": "~2.2",
     "snappy": "~6.0",
     "superagent": "~3.8"
